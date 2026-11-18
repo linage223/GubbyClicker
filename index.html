@@ -1324,6 +1324,11 @@ body.nuke-active .gameLayout,body.nuke-active .topbar{animation:nukeScreenShake 
 #nukeFailureOverlay.active{display:grid}
 #nukeFailureOverlay img{display:block;width:100%;height:100%;object-fit:contain}
 @media(max-width:520px){#nukeOverlay{inset:auto 8px auto auto}.nukeDialog{width:min(290px,calc(100vw - 16px))}.topbar h1{white-space:normal}}
+#irsCreepOverlay{position:fixed;inset:0;z-index:850;display:none;overflow:hidden;pointer-events:none}
+#irsCreepOverlay.active{display:block}
+#irsCreepOverlay img{position:absolute;left:0;bottom:5%;width:clamp(100px,18vw,210px);max-height:32vh;object-fit:contain;filter:drop-shadow(0 8px 12px #000b);animation:irsCreepAcross 9s linear forwards}
+@keyframes irsCreepAcross{0%{opacity:0;transform:translateX(-110%) translateY(12px) scale(.72) rotate(-7deg)}12%{opacity:1}45%{transform:translateX(42vw) translateY(-5px) scale(.9) rotate(2deg)}72%{transform:translateX(70vw) translateY(3px) scale(1) rotate(-2deg)}100%{opacity:1;transform:translateX(calc(100vw + 100%)) translateY(0) scale(1.08) rotate(3deg)}}
+@media(prefers-reduced-motion:reduce){#irsCreepOverlay img{animation-duration:1.5s}}
 </style>
 </head>
 <body>
@@ -1845,6 +1850,7 @@ body.nuke-active .gameLayout,body.nuke-active .topbar{animation:nukeScreenShake 
 <div id="litanyOverlay" aria-hidden="true"><img id="litanyImage" src="https://uploads.onecompiler.io/43j7r7f37/44msceh4u/litany-grace.gif" alt="Litany"><p id="litanyPrompt">Move your mouse before the timer runs out!</p></div>
 <div id="oblivionReward" aria-hidden="true"><img src="https://uploads.onecompiler.io/43hht3yq/455jfwebr/oblivion-sols-rng.gif" alt="Rare reward event"></div>
 <div id="mayhemNarrative" aria-hidden="true"><div id="mayhemNarrativeText">Mayhem mode selected. Preparing the arena…</div></div>
+<div id="irsCreepOverlay" aria-hidden="true"><img src="https://uploads.onecompiler.io/43j7r7f37/454adqt2g/images.jpeg" alt="IRS audit surprise"></div>
 <div id="nukeScreenEffect" aria-hidden="true"></div>
 <div id="nukeFailureOverlay" aria-hidden="true"><img src="https://uploads.onecompiler.io/43hht3yq7/1794919691802/a4d503bbf7298f526d75b002670defc9.gif" alt="Nuke failure animation"></div>
 <div id="nukeOverlay" aria-hidden="true">
@@ -2431,6 +2437,7 @@ const gameEvents = [
     {name:"Pet License Fee",type:"tax",value:.04,message:"Pet licenses cost 4% of your coins."},
     {name:"Import Duty",type:"tax",value:.09,message:"Import duty takes 9% of your coins."},
     {name:"Surprise Invoice",type:"tax",value:.15,message:"A surprise invoice claims 15% of your coins."},
+    {name:"Tax Evasion: IRS Audit",type:"tax",value:.1,message:"The IRS catches your tax evasion and collects 10% of your coins."},
     {name:"Town Fund",type:"tax",value:.03,message:"The town fund collects 3% of your coins."},
     {name:"Ransom's Cut",type:"tax",value:.25,message:"Ransom takes a hefty 25% cut."},
     {name:"Power Bill",type:"tax",value:.07,message:"The power bill costs 7% of your coins."},
@@ -5203,12 +5210,39 @@ function getEventMultiplier(type){
     }
     return multiplier;
 }
+function showIrsCreep(){
+    const overlay=document.getElementById("irsCreepOverlay");
+    const image=overlay.querySelector("img");
+    const replay=image.cloneNode();
+    image.replaceWith(replay);
+    overlay.classList.add("active");
+    overlay.setAttribute("aria-hidden","false");
+    replay.addEventListener("animationend",()=>{
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden","true");
+    },{once:true});
+}
+let irsTypingBuffer="";
+document.addEventListener("keydown",event=>{
+    const target=event.target;
+    if(target instanceof HTMLInputElement||target instanceof HTMLTextAreaElement||target.isContentEditable){
+        irsTypingBuffer="";
+        return;
+    }
+    if(!/^[a-z]$/i.test(event.key))return;
+    irsTypingBuffer=(irsTypingBuffer+event.key.toLowerCase()).slice(-3);
+    if(irsTypingBuffer==="irs"){
+        irsTypingBuffer="";
+        showIrsCreep();
+    }
+});
 function triggerGameEvent(index){
     const event=gameEvents[index];
     if(!event)return;
     if(event.type==="tax"){
         const paid=Math.floor(coins*event.value);
         coins=Math.max(0,coins-paid);
+        if(event.name==="Tax Evasion: IRS Audit")showIrsCreep();
         showStatus(`${event.name}: ${event.message} (${paid.toLocaleString()} coins).`);
     }else if(event.type==="coins"){
         coins=Math.max(0,coins+event.value);
