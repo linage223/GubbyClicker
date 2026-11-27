@@ -1,0 +1,56 @@
+Here is your script formatted with Fish Audio punctuation and [bracket] tags tailored to each character's personality:
+• SYSTEM: Cold, robotic, steady pacing with clean pauses.
+• AUDITOR: Calm, authoritative, slightly serious, with deliberate pauses for weight.
+• GUBBY: Playful, energetic, comedic timing (Note: I removed "Gubby says:" from the spoken text so the voice actor just speaks the line—keep "Gubby says:" in your HTML display text!).
+
+Main Dialogue Lines (Copy-Paste into Fish Audio)
+
+1. SYSTEM
+[calm] Automated behavior flag received. [break] Gameplay is paused while we review the input pattern.
+2. AUDITOR
+[serious] Your progress matters. [break] So does earning it fairly.
+3. SYSTEM
+[calm] A long run of nearly identical click intervals triggered this check.
+4. AUDITOR
+[calm] If it was a coincidence... take a breath. [break] People are allowed to make mistakes.
+5. SYSTEM
+[calm] The review lasts five minutes. [break] No coins, upgrades, or background gameplay will advance.
+6. AUDITOR
+[serious] Please do not try to click through the screen. [break] This is a pause... not a hidden challenge.
+7. SYSTEM
+[calm] You may open the Terms of Service in a new tab. [break] Return here when you are ready.
+8. AUDITOR
+[serious] When the review ends, enter the continuation code and confirm that you have read the terms.
+9. SYSTEM
+[calm] The code... two, zero, one, zero... skips the wait and opens the confirmation step immediately.
+10. AUDITOR
+[serious] Keep playing at a natural pace. [break] Repeated automated clicking after this review may erase saved progress.
+11. SYSTEM
+[calm] Review in progress. [break] Please wait for the terminal to unlock.
+12. AUDITOR
+[sigh] [calm] That's all. No courtroom, no lecture. [break] Just a chance to reset... and continue fairly.
+
+Gubby Random Outbursts (Copy-Paste into Fish Audio)
+
+Gubby 1
+[excited] That click had excellent posture!
+Gubby 2
+[delighted] I counted that click. [break] It was a good one!
+Gubby 3
+[nervous] The coins are unionizing! [break] [urgent] They demand more clicking!
+Gubby 4
+[whispering] I saw nothing. [break] I was facing the other way.
+Gubby 5
+[serious] Official report: [break] [delighted] suspiciously adorable gameplay!
+Gubby 6
+[calm] Please remain calm. [break] [laughs] The snack department is handling this!
+Gubby 7
+[excited] One more click, and I become the manager!
+Gubby 8
+[sigh] Your mouse called. [break] [curious] It wants a tiny vacation.
+
+Quick Tip for Line 9 (2010)
+
+Writing two, zero, one, zero instead of 2010 prevents Fish Audio from saying "twenty-ten" or "two thousand and ten" when you want a security code read digit-by-digit.
+Once you generate and host those MP3s, would you like me to update your JavaScript object array to include an audio: property and show how to trigger both the main lines and Gubby's random outbursts cleanly without overlapping?
+AI responses may include mistakes. Learn more
